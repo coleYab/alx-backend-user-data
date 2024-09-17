@@ -32,6 +32,7 @@ def authing() -> str:
     abort(401, description="Unauthorized")
     return ""
 
+
 @app_views.route('/stats/', strict_slashes=False)
 def stats() -> str:
     """ GET /api/v1/stats
