@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """ Simple Auth class to imulate authorization
 """
-
 from typing import *
 from flask import request
+
 
 class Auth:
     """ Auth clas that ecapsulates authing
@@ -27,4 +27,3 @@ class Auth:
         """ getting current user
         """
         return None
-
