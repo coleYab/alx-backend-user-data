@@ -8,11 +8,6 @@ from flask import request
 class Auth:
     """ Auth clas that ecapsulates authing
     """
-    def __init__(self):
-        """ constructor type shit
-        """
-        pass
-
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ requireing authing
         """
