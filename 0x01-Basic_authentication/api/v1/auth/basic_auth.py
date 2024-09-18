@@ -22,3 +22,19 @@ class BasicAuth(Auth):
             return None
 
         return authorization_header.lstrip('Basic ')
+
+    def decode_base64_authorization_header(self, base64_authorization_header: str) -> str:
+        """
+        decode_base64_authorization_header: decoding the header
+        """
+        if base64_authorization_header is None:
+            return None
+        elif not isinstance(base64_authorization_header, str):
+            return None
+
+        try:
+            import base64
+            by = base64.b64decode(base64_authorization_header, validate=True)
+            return by.decode('utf-8')
+        except:
+            return None
