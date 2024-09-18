@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """ Simple Auth class to imulate authorization
 """
-from typing import *
 from flask import request
+from typing import (
+    List,
+    TypeVar
+)
 
 
 class Auth:
