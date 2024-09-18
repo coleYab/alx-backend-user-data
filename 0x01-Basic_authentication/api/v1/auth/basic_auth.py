@@ -14,7 +14,8 @@ class BasicAuth(Auth):
     BasicAuth: basic auth system for class
     """
     def extract_base64_authorization_header(
-            self, authorization_header: str) -> str:
+            self, authorization_header: str
+            ) -> str:
         """
         extract_base64_authorization_header: extracts the header
         """
@@ -27,7 +28,10 @@ class BasicAuth(Auth):
 
         return authorization_header.lstrip('Basic ')
 
-    def decode_base64_authorization_header(self, base64_authorization_header: str) -> str:
+    def decode_base64_authorization_header(
+            self,
+            base64_authorization_header: str
+            ) -> str:
         """
         decode_base64_authorization_header: decoding the header
         """
@@ -40,10 +44,13 @@ class BasicAuth(Auth):
             import base64
             by = base64.b64decode(base64_authorization_header, validate=True)
             return by.decode('utf-8')
-        except:
+        except Exception as e:
             return None
 
-    def extract_user_credentials(self, decoded_base64_authorization_header: str) -> (str, str):
+    def extract_user_credentials(
+            self,
+            decoded_base64_authorization_header: str
+            ) -> (str, str):
         """
         extract_user_credentials: this is the main extraction of user data
         """
@@ -56,7 +63,10 @@ class BasicAuth(Auth):
                 return cred[:dt], cred[dt+1:]
         return None, None
 
-    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
+    def user_object_from_credentials(
+            self,
+            user_email: str, user_pwd: str
+            ) -> TypeVar('User'):
         """
         creating user from user credentials
         """

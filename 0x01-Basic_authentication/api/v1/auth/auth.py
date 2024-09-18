@@ -28,10 +28,10 @@ class Auth:
         """
         if None in [path, excluded_paths] or len(excluded_paths) == 0:
             return False
-        for excluded_path in excluded_paths:
-            if excluded_path[-1] == '*' and path.startswith(excluded_path[:-1]):
+        for excl_path in excluded_paths:
+            if excl_path[-1] == '*' and path.startswith(excl_path[:-1]):
                 return False
-            if path.startswith(excluded_path):
+            if path.startswith(excl_path):
                 return False
 
         return True
