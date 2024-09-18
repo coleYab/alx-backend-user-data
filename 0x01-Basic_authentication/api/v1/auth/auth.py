@@ -6,19 +6,23 @@ from flask import request
 
 
 class Auth:
-    """ Auth clas that ecapsulates authing
+    """
+    Auth clas that ecapsulates authing
     """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """ requireing authing
+        """
+        requireing authing
         """
         return False
 
     def authorization_header(self, request=None) -> str:
-        """ authorizating the main header
+        """
+        authorizating the main header
         """
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """ getting current user
+        """
+        getting current user
         """
         return None
