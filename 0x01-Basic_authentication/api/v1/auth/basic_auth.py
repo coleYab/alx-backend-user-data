@@ -55,6 +55,7 @@ class BasicAuth(Auth):
                 return None, None
             return tuple(dt)
         return None, None
+
     def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
         """
         creating user from user credentials
@@ -69,5 +70,3 @@ class BasicAuth(Auth):
             if user.is_valid_password(user_pwd):
                 return user
         return None
-
-
