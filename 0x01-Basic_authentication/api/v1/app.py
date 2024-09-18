@@ -20,6 +20,9 @@ if getenv("AUTH_TYPE").strip() == "auth":
 
 @app.before_request
 def handler():
+    """
+    handler: handling a the main authing system
+    """
     excluded_path = [
         '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/'
         ]
