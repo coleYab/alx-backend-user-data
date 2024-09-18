@@ -27,11 +27,11 @@ class Auth:
             True, False
         """
         if None in [path, excluded_paths] or len(excluded_paths) == 0:
-            return False
+            return True
         for excl_path in excluded_paths:
             if excl_path[-1] == '*' and path.startswith(excl_path[:-1]):
                 return False
-            if path.startswith(excl_path):
+            if path.startswith(excl_path.rstrip('/')):
                 return False
 
         return True
