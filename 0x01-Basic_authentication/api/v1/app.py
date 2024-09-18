@@ -31,9 +31,9 @@ def handler() -> None:
     if not auth.require_auth(request.path, excluded_path):
         return None
     if auth.authorization_header(request) is None:
-        abort(401, "Auth header is not supplied")
+        abort(401, description="Auth header is not supplied")
     if auth.current_user(request) is None:
-        abort(403, "Authoriztion failed")
+        abort(403, description="Authoriztion failed")
 
 
 @app.errorhandler(404)
