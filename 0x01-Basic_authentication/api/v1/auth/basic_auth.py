@@ -3,6 +3,10 @@
 a basic authing system
 """
 from api.v1.auth.auth import Auth
+from models.user import User
+from typing import (
+    TypeVar, List
+)
 
 
 class BasicAuth(Auth):
@@ -51,3 +55,19 @@ class BasicAuth(Auth):
                 return None, None
             return tuple(dt)
         return None, None
+    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """
+        creating user from user credentials
+        """
+        for cred in [user_email, user_pwd]:
+            if cred is None or not isinstance(cred, str):
+                return None
+        users = User.search({'email': user_email})
+        if users is None or len(users) == 0:
+            return None
+        for user in users:
+            if user.is_valid_password(user_pwd):
+                return user
+        return None
+
+
