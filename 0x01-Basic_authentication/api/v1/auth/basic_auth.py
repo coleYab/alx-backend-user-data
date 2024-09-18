@@ -9,7 +9,11 @@ class BasicAuth(Auth):
     """
     BasicAuth: basic auth system for class
     """
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(
+            self, authorization_header: str) -> str:
+        """
+        extract_base64_authorization_header: extracts the header
+        """
         if authorization_header is None:
             return None
         elif not isinstance(authorization_header, str):
