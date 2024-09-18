@@ -35,6 +35,7 @@ def handler():
     if auth.current_user(request) is None:
         abort(403, "Authoriztion failed")
 
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
