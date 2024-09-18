@@ -40,6 +40,11 @@ class Auth:
         args:
             - request: the main falsk.request object
         """
+        if request is not None:
+            header = request.headers
+            if 'Authorization' in header:
+                return header['Authorization']
+
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
