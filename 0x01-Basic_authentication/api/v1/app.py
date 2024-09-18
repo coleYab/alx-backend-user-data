@@ -19,7 +19,7 @@ if getenv("AUTH_TYPE").strip() == "auth":
 
 
 @app.before_request
-def handler():
+def handler() -> None:
     """
     handler: handling a the main authing system
     """
