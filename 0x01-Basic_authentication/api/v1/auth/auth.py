@@ -7,22 +7,36 @@ from flask import request
 
 class Auth:
     """
-    Auth clas that ecapsulates authing
+    Auth:
+        - a simple class for authorization
+    Methods:
+        - require_auth: checks if a path requires auth
+        - authorization_header: returns auth header from request
+        - current_user: retrives the current authorized user
     """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
-        requireing authing
+        require_auth: methods to return path requires auth
+        args:
+            - path: the path to check
+            - excluded_paths: the path that don't need auth
+        returns:
+            True, False
         """
         return False
 
     def authorization_header(self, request=None) -> str:
         """
-        authorizating the main header
+        authorization_header: retrives auth header from request.
+        args:
+            - request: the main falsk.request object
         """
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
-        getting current user
+        current_user: retrives the current user.
+        args:
+            - request: the main request object
         """
         return None
