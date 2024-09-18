@@ -19,6 +19,7 @@ if AUTH_TYPE == "auth":
     auth = Auth()
 if AUTH_TYPE == "basic_auth":
     from api.v1.auth.basic_auth import BasicAuth
+    print("We are doing it with basic auth")
     auth = BasicAuth()
 
 
