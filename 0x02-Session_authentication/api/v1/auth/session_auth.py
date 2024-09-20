@@ -9,4 +9,14 @@ class SessionAuth(Auth):
     """
     SessionAuth: class to implement session authorization
     """
-    pass
+    user_id_by_session_id = {}
+
+    def create_session(self, user_id: str = None) -> str:
+        if user_id is None:
+            return None
+        if not isinstance(user_id, str):
+            return None
+        from uuid import uuid4
+        session_id = str(uuid4())
+        SessionAuth.user_id_by_session_id[session_id] = user_id
+        return session_id
