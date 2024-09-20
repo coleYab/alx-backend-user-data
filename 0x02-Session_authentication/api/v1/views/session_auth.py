@@ -40,6 +40,7 @@ def new_session() -> str:
     # setting the session id cookie
     res = make_response(jsonify(user.to_json()))
     res.set_cookie(cookie_name, session_id)
+    print(f"session_id {session_id}")
 
     return res
 
@@ -51,6 +52,7 @@ def destroy_session() -> str:
     """
     destroy_session: deleting the session for the user
     """
+    from api.v1.app import auth
     if not auth.destroy_session(request):
         abort(404)
     return jsonify({}), 200
