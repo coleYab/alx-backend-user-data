@@ -4,7 +4,7 @@ Expiration based session authorization
 """
 from api.v1.auth.session_auth import SessionAuth
 from os import getenv
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class SessionExpAuth(SessionAuth):
@@ -29,6 +29,7 @@ class SessionExpAuth(SessionAuth):
         if session_id is None:
             return None
         session_dic = {'user_id': user_id, 'created_at': datetime.now()}
+        SessionExpAuth.user_id_by_session_id[session_id] = session_dic
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
@@ -41,6 +42,6 @@ class SessionExpAuth(SessionAuth):
         if session_dic is None or 'user_id' not in session_dic:
             return None
         c_at = session_dic['created_at']
-        if c_at + timedelta(seconds=self.session_duration) > datetime.now():
+        if c_at + timedelta(seconds=self.session_duration) < datetime.now():
             return None
         return session_dic['user_id']
