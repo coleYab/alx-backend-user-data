@@ -25,6 +25,7 @@ match AUTH_TYPE:
         from api.v1.auth.session_auth import SessionAuth
         auth = SessionAuth()
 
+
 @app.before_request
 def handler() -> None:
     """
