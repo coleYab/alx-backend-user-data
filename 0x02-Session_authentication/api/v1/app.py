@@ -31,14 +31,18 @@ def handler() -> None:
     handler: handling a the main authing system
     """
     excluded_path = [
-        '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/'
+        '/api/v1/status/', '/api/v1/status/', '/api/v1/unauthorized/',
+        '/api/v1/auth_session/login/'
         ]
     if request is None or auth is None:
         return None
     if not auth.require_auth(request.path, excluded_path):
         return None
-    if auth.authorization_header(request) is None:
-        abort(401, description="Auth header is not supplied")
+    if (
+            auth.authorization_header(request) is None and
+            auth.session_cookie(request) is None
+            ):
+        abort(401, description="Session Cookie is not supplied")
     if auth.current_user(request) is None:
         abort(403, description="Authoriztion failed")
     request.current_user = auth.current_user(request)

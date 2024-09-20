@@ -3,6 +3,8 @@
 Session auth method
 """
 from api.v1.auth.auth import Auth
+from models.user import User
+from typing import TypeVar
 
 
 class SessionAuth(Auth):
@@ -33,3 +35,13 @@ class SessionAuth(Auth):
         if not isinstance(session_id, str):
             return None
         return SessionAuth.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """
+        current_user: retriving current user from the given request
+        args:
+            - request: the request object
+        """
+        session_id = self.session_cookie(request)
+        user_id = self.user_id_for_session_id(session_id)
+        return User.get(user_id)

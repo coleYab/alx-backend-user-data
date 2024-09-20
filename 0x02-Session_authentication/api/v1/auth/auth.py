@@ -56,3 +56,17 @@ class Auth:
             - request: the main request object
         """
         return None
+
+    def session_cookie(self, request=None):
+        """
+        session_cookie: retriving of session cookie from the request
+        args:
+            - request: the main request object
+        """
+        if request is None:
+            return None
+        from os import getenv
+        session_name = getenv("SESSION_NAME")
+        if session_name is None:
+            return None
+        return request.cookies.get(session_name)
