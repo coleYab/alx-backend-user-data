@@ -39,6 +39,7 @@ def handler() -> None:
         abort(401, description="Auth header is not supplied")
     if auth.current_user(request) is None:
         abort(403, description="Authoriztion failed")
+    request.current_user = auth.current_user(request)
 
 
 @app.errorhandler(404)
