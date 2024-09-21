@@ -38,8 +38,8 @@ class SessionDBAuth(SessionExpAuth):
             user id or None if session_id is None or not a string
         """
         user_id = UserSession.search({"session_id": session_id})
-        if user_id:
-            return user_id
+        if user_id is not None:
+            return user_id[0].user_id
         return None
 
     def destroy_session(self, request=None):
