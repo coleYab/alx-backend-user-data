@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-Db: class for managing users and their shitty data
+Db: class for managing user and their shitty data
 """
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 
 from user import Base, User
 
@@ -40,3 +42,19 @@ class DB:
         sess.add(new_user)
         sess.commit()
         return new_user
+
+    def find_user_by(self, **kwargs) -> User:
+        """
+        find_user_by: this will search for user
+        """
+        user = None
+        try:
+            session = self._session
+            user = session.query(User).filter_by(**kwargs).first()
+        except InvalidRequestError:
+            raise InvalidRequestError
+
+        if user is None:
+            raise NoResultFound
+
+        return user
