@@ -22,7 +22,6 @@ class DB:
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
-        print("Created engine")
 
     @property
     def session(self) -> Session:
@@ -31,7 +30,6 @@ class DB:
         if self.__session is None:
             DBsession = sessionmaker(bind=self._engine)
             self.__session = DBsession()
-        print("Created session")
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> TypeVar('User'):
