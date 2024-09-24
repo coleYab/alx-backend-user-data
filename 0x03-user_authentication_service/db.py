@@ -19,7 +19,7 @@ class DB:
     def __init__(self) -> None:
         """ Initialize new db instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=False)
+        self._engine = create_engine("sqlite:///a.db", echo=True)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -58,3 +58,22 @@ class DB:
             raise NoResultFound
 
         return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        update_user: update user data
+        """
+        user = None
+        try:
+            user = self.find_user_by(id=user_id)
+        except:
+            return
+
+        for key, val in kwargs.items():
+            assert 'hashed_password' in user.__dict__
+            if key not in user.__dict__:
+                raise ValueError("argument mismatch")
+
+        session = self._session
+        session.query(User).filter_by(id=user_id).update(kwargs)
+        session.commit()
