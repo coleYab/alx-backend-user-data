@@ -63,7 +63,28 @@ class Auth:
 
         return False
 
-    def create_session(self, email) -> str:
+    def destroy_session(self, user_id: int) -> None:
+        """
+        removes an authorized user session
+        """
+        if user_id is None or not isinstance(user_id, int):
+            return
+
+        self._db.update_user(user_id, session_id=None)
+
+    def get_user_from_session_id(self, session_id: str) -> str:
+        """
+        retriving a user from given session id
+        """
+        if session_id is None:
+            return None
+
+        try:
+            return self._db.find_user_by(session_id=session_id)
+        except Exception as e:
+            return None
+
+    def create_session(self, email: str) -> str:
         """
         create a session for a user and returns the session id
         """
