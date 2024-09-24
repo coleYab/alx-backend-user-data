@@ -4,9 +4,15 @@ a simple implementation of auth
 """
 from bcrypt import hashpw, gensalt, checkpw
 from sqlalchemy.orm.exc import NoResultFound
+from uuid import uuid4
 
 from db import DB
 from user import User
+
+def _generate_uuid() -> str:
+    """ _generate_uuid: generate a unique identifiers
+    """
+    return str(uuid4())
 
 
 def _hash_password(password: str) -> str:
@@ -56,3 +62,17 @@ class Auth:
             return False
 
         return False
+
+    def create_session(self, email) -> str:
+        """
+        create a session for a user and returns the session id
+        """
+        try:
+            session_id = _generate_uuid()
+            user = self._db.find_user_by(email=email)
+            assert user is not None
+            self._db.update_user(user.id, session_id=session_id)
+        except Exception as e:
+            return None
+
+        return session_id
