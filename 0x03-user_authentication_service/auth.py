@@ -43,4 +43,3 @@ class Auth:
             pass
 
         return self._db.add_user(email, str(hashed_password))
-
