@@ -2,7 +2,7 @@
 """
 app: creating a simple application terminal
 """
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response, abort
 from auth import Auth
 
 
@@ -28,6 +28,23 @@ def new_users() -> str:
         return jsonify({"message": "email already registered"}), 400
 
     return jsonify({"email": email, "message": "user created"}), 200
+
+
+@app.route('/sessions', methods=['POST'])
+def login() -> str:
+    """
+    login: method to manage the user which is in
+    """
+    email = request.form.get('email')
+    password = request.form.get('password')
+    if AUTH.valid_login(email, password):
+        session_id = AUTH.create_session(email)
+        resp = make_response(jsonify({"email": email, "message": "logged in"}))
+        resp.set_cookie('session_id', session_id)
+        return resp
+
+    abort(401)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port="5000")
