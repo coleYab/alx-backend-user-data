@@ -2,7 +2,7 @@
 """
 a simple implementation of auth
 """
-from bcrypt import hashpw, gensalt
+from bcrypt import hashpw, gensalt, checkpw
 from sqlalchemy.orm.exc import NoResultFound
 
 from db import DB
@@ -43,3 +43,16 @@ class Auth:
             pass
 
         return self._db.add_user(email, str(hashed_password))
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """ valid_login: validtes login for the user
+        """
+        user = None
+        try:
+            user = self._db.find_user_by(email=email)
+            encoded_pwd = user.hashed_password[2:-1].encode('utf-8')
+            return checkpw(password.encode('utf-8'), encoded_pwd)
+        except Exception as e:
+            return False
+
+        return False
