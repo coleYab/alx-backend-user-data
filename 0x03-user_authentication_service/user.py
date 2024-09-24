@@ -18,11 +18,3 @@ class User(Base):
     hashed_password = Column(String(250))
     session_id = Column(String(250))
     reset_token = Column(String(250))
-
-    def __repr__(self) -> str:
-        """
-        generating string representaiton for debugging
-        """
-        return f"User<id: {self.id}, email: {self.email}, hashed_password: {self.hashed_password}>"
-
-
