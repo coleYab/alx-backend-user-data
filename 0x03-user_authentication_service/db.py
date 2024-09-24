@@ -24,7 +24,7 @@ class DB:
         self.__session = None
 
     @property
-    def session(self) -> Session:
+    def _session(self) -> Session:
         """ Memoized session object
         """
         if self.__session is None:
@@ -37,8 +37,7 @@ class DB:
         add_user: adds a new user to our db
         """
         new_user = User(email=email, hashed_password=hashed_password)
-        sess = self.session
-        sess.close_on_commit = False
+        sess = self._session
         sess.add(new_user)
         sess.commit()
         return new_user
