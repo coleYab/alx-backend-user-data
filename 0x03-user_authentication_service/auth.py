@@ -9,6 +9,7 @@ from uuid import uuid4
 from db import DB
 from user import User
 
+
 def _generate_uuid() -> str:
     """ _generate_uuid: generate a unique identifiers
     """
