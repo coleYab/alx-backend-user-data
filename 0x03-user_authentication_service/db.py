@@ -67,10 +67,9 @@ class DB:
         try:
             user = self.find_user_by(id=user_id)
         except Exception as e:
-            return
+            raise ValueError
 
         for key, val in kwargs.items():
-            assert 'hashed_password' in user.__dict__
             if key not in user.__dict__:
                 raise ValueError("argument mismatch")
 
