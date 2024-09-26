@@ -97,6 +97,20 @@ class Auth:
         self._db.update_user(user.id, reset_token=reset_token)
         return reset_token
 
+    def update_password(self, reset_token: str, password: str) -> None:
+        """
+        update_password: updates user password pointed by this reset_token
+        """
+        user = self._db.find_user_by(reset_token=reset_token)
+        if user is None:
+            raise ValueError("User doesn't found")
+
+        pwd = _hash_password(password)
+        self._db.update_user(
+                                user.id, hashed_password=pwd,
+                                reset_token=None
+                                )
+
     def create_session(self, email: str) -> str:
         """
         create a session for a user and returns the session id
