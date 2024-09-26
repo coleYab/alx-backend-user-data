@@ -85,6 +85,18 @@ class Auth:
         except Exception as e:
             return None
 
+    def get_reset_password_token(self, email: str) -> str:
+        """
+        get_reset_password_token: this will return password token
+        """
+        user = self._db.find_user_by(email=email)
+        if user is None:
+            return ValueError("User don't found")
+
+        reset_token = _generate_uuid()
+        self._db.update_user(user.id, reset_token=reset_token)
+        return reset_token
+
     def create_session(self, email: str) -> str:
         """
         create a session for a user and returns the session id
