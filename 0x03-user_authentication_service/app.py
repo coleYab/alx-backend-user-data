@@ -19,6 +19,7 @@ def homepage() -> str:
     """
     return jsonify({"message": "Bienvenue"}), 200
 
+
 @app.route('/users', methods=['POST'])
 def new_users() -> str:
     """ new_users: adds a new user to our db
@@ -31,6 +32,19 @@ def new_users() -> str:
         return jsonify({"message": "email already registered"}), 400
 
     return jsonify({"email": email, "message": "user created"}), 200
+
+
+@app.route('/profile', methods=['GET'])
+def profile() -> str:
+    """
+    profile: method to show user profile
+    """
+    session_id = request.cookies.get('session_id')
+    user = AUTH.get_user_from_session_id(session_id)
+    if user is None:
+        abort(403)
+
+    return jsonify({'email': user.email}), 200
 
 
 @app.route('/sessions', methods=['POST'])
