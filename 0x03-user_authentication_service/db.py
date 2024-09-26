@@ -43,7 +43,7 @@ class DB:
         sess.commit()
         return new_user
 
-    def find_user_by(self, **kwargs) -> User:
+    def find_user_by(self, **kwargs: dict) -> User:
         """
         find_user_by: this will search for user
         """
@@ -59,14 +59,14 @@ class DB:
 
         return user
 
-    def update_user(self, user_id: int, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs: dict) -> None:
         """
         update_user: update user data
         """
         user = None
         try:
             user = self.find_user_by(id=user_id)
-        except:
+        except Exception as e:
             return
 
         for key, val in kwargs.items():

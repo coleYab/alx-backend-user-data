@@ -104,6 +104,8 @@ class Auth:
         user = self._db.find_user_by(reset_token=reset_token)
         if user is None:
             raise ValueError("User doesn't found")
+        if password is None or not isinstance(password, str):
+            raise ValueError("Invaid password")
 
         pwd = _hash_password(password)
         self._db.update_user(
