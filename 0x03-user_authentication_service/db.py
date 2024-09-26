@@ -43,7 +43,7 @@ class DB:
         sess.commit()
         return new_user
 
-    def find_user_by(self, **kwargs: dict) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """
         find_user_by: this will search for user
         """
